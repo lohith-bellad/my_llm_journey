@@ -46,6 +46,21 @@ Causal (masked) attention for autoregressive language modeling:
 - **Dropout**: Regularization on attention weights
 - **Batch Processing**: Handles 3D tensors (batch_size, seq_len, d_model)
 
+#### `chap3/multihead-attention-wrapper.py`
+Multi-head attention using a wrapper approach:
+- **MultiHeadAttentionWrapper**: Combines multiple CausalAttention heads
+- **ModuleList**: Creates independent attention heads
+- **Concatenation**: Outputs from all heads are concatenated along feature dimension
+- Simple but less efficient approach for understanding multi-head attention concept
+
+#### `chap3/multihead-attention.py`
+Efficient multi-head attention implementation:
+- **MultiHeadAttention Module**: Single-pass QKV projections split across heads
+- **Head Splitting**: d_out divided evenly across num_heads (d_out = num_heads × head_dim)
+- **Tensor Reshaping**: Views and transposes for parallel head computation
+- **Causal Masking**: Built-in upper triangular mask for autoregressive modeling
+- More efficient than wrapper approach - computes Q, K, V once then splits
+
 ## Notes
 
 - The examples use simple toy data for demonstration purposes
